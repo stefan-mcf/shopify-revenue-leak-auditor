@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 from typing import Any
 
 from bs4 import BeautifulSoup, Tag
@@ -10,8 +9,15 @@ from bs4 import BeautifulSoup, Tag
 from shopify_auditor.utils.text import clean_whitespace, count_words
 
 _NON_VISIBLE_TAGS = {
-    "style", "script", "meta", "link", "noscript",
-    "svg", "path", "title", "head",
+    "style",
+    "script",
+    "meta",
+    "link",
+    "noscript",
+    "svg",
+    "path",
+    "title",
+    "head",
 }
 
 

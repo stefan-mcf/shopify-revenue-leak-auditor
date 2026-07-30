@@ -5,11 +5,14 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
-from playwright.sync_api import Page, TimeoutError as PlaywrightTimeout
+from playwright.sync_api import TimeoutError as PlaywrightTimeout
 
-from shopify_auditor.browser.device_profiles import DESKTOP, MOBILE, DeviceProfile
+from shopify_auditor.browser.device_profiles import DESKTOP
 from shopify_auditor.browser.runner import BrowserRunner
-from shopify_auditor.browser.screenshots import capture_desktop_screenshot, capture_mobile_screenshot
+from shopify_auditor.browser.screenshots import (
+    capture_desktop_screenshot,
+    capture_mobile_screenshot,
+)
 from shopify_auditor.models.audit import PageLoadResult, PageLoadStatus
 
 logger = logging.getLogger(__name__)
@@ -86,6 +89,7 @@ class PageLoader:
 
                     # Save raw HTML
                     from shopify_auditor.utils.files import write_text
+
                     try:
                         html_path = str(out / "page.html")
                         write_text(html_path, html)

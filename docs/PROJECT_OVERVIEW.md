@@ -60,7 +60,7 @@ Main package areas:
 - `src/shopify_auditor/checks/` - audit category checks
 - `src/shopify_auditor/scoring/` - severity and category-weight scoring
 - `src/shopify_auditor/reports/` - Markdown/HTML report rendering
-- `src/shopify_auditor/llm/` - optional disabled-by-default LLM enrichment layer
+- `src/shopify_auditor/llm/` - internal extension interfaces for future provider work
 - `examples/` - public-safe demo inputs and generated outputs
 - `docs/` - methodology, scoring, delivery requirements, and limitations
 
@@ -88,4 +88,4 @@ The report focuses on practical remediation rather than generic AI commentary. I
 
 ## Scope Boundary
 
-This is a public-page auditor. It does not need Shopify credentials, private customer data, or ad account access for the MVP. It should never imply access to analytics or guaranteed revenue impact unless those sources are explicitly integrated and approved by the merchant.
+This is a public-page auditor. It does not need Shopify credentials, private customer data, or ad account access. It should never imply access to analytics or guaranteed revenue impact unless those sources are explicitly integrated and approved by the merchant.

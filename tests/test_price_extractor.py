@@ -1,4 +1,4 @@
-"""Tests for price extraction (Tranche 6)."""
+"""Tests for price extraction."""
 
 from __future__ import annotations
 

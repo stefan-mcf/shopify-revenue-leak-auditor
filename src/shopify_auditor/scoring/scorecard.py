@@ -38,7 +38,9 @@ def build_scorecard(findings: list[Finding]) -> Scorecard:
         )
         total_score += score
 
-    sorted_priorities = sorted(findings, key=lambda f: (f.severity.rank, -f.confidence, f.category, f.message))[:5]
+    sorted_priorities = sorted(
+        findings, key=lambda f: (f.severity.rank, -f.confidence, f.category, f.message)
+    )[:5]
     return Scorecard(
         overall_score=total_score,
         score_label=score_label_for(total_score),

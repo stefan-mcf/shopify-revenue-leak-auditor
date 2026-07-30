@@ -46,7 +46,7 @@ class LLMAnalysis:
 
 
 class OptionalAnalyzer:
-    """Tranche 19 optional analyzer facade for AuditResult enrichment."""
+    """Optional analyzer facade for AuditResult enrichment."""
 
     def __init__(self, enabled: bool = False, client: LLMClient | None = None) -> None:
         self.enabled = enabled

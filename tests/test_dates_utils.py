@@ -1,4 +1,4 @@
-"""Tests for date utilities (Tranche 3)."""
+"""Tests for date utilities."""
 
 from __future__ import annotations
 

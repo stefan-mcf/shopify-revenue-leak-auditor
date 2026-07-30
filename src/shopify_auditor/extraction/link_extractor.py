@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 

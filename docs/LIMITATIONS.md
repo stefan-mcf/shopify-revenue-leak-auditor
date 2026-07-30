@@ -4,7 +4,7 @@ Shopify Revenue Leak Auditor is a public-page audit assistant. It is designed to
 
 ## Public-Page-Only By Default
 
-The MVP inspects public URLs only. It does not access:
+The auditor inspects public URLs only. It does not access:
 
 - Shopify Admin data
 - Shopify Analytics
@@ -58,7 +58,7 @@ Screenshots and extracted text should be reviewed before client delivery.
 
 ## Rule-Based Analysis Limitations
 
-The MVP relies mostly on deterministic rules and keyword/signal detection. This makes the tool predictable and usable without API keys, but it also means:
+The auditor relies mostly on deterministic rules and keyword/signal detection. This makes the tool predictable and usable without API keys, but it also means:
 
 - some real issues may be missed
 - some findings may be false positives
@@ -66,21 +66,11 @@ The MVP relies mostly on deterministic rules and keyword/signal detection. This 
 - findings may need severity adjustment for the actual merchant context
 - category scoring is a prioritisation aid, not a scientific CRO model
 
-## AI Limitations If LLM Is Enabled
+## LLM Provider Boundary
 
-Optional LLM analysis is disabled by default. If enabled, LLM output should be treated as draft wording only.
-
-The LLM must not be trusted to invent or infer:
-
-- analytics data
-- revenue impact
-- customer behavior
-- conversion rates
-- private Shopify information
-- ad performance
-- legal/compliance conclusions
-
-Human review is required before using LLM-assisted wording client-facing.
+No LLM provider is connected to the released CLI or API. Reports are generated
+from deterministic checks and templates. Internal extension interfaces do not
+constitute a supported provider integration.
 
 ## Legal and Professional Boundaries
 

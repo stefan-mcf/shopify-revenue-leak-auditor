@@ -7,17 +7,20 @@ import re
 from typing import Any
 
 from bs4 import BeautifulSoup
-from shopify_auditor.utils.text import contains_any
 
 # Strong signals that this is a Shopify product page
 _SHOPIFY_PRODUCT_JSON_LD_TYPES = {"Product", "product"}
-_SHOPIFY_PRODUCT_CLASSES = re.compile(r"product", re.I)
+_SHOPIFY_PRODUCT_CLASSES = re.compile(r"product", re.IGNORECASE)
 _ADD_TO_CART_TEXT = [
-    "add to cart", "add to bag", "add to basket",
-    "buy now", "pre-order", "preorder",
+    "add to cart",
+    "add to bag",
+    "add to basket",
+    "buy now",
+    "pre-order",
+    "preorder",
 ]
 _VARIANT_SELECTOR_PATTERNS = re.compile(
-    r"variant|option[-\s]?select|single-option-selector", re.I
+    r"variant|option[-\s]?select|single-option-selector", re.IGNORECASE
 )
 
 
@@ -47,6 +50,7 @@ def detect_product_page(html: str, url: str = "") -> dict[str, Any]:
 
     # 1. URL pattern
     from shopify_auditor.utils.urls import is_likely_product_url
+
     signals["url_has_product_pattern"] = is_likely_product_url(url)
 
     # 2. Add-to-cart buttons
@@ -57,6 +61,7 @@ def detect_product_page(html: str, url: str = "") -> dict[str, Any]:
 
     # 4. Price presence
     from shopify_auditor.extraction.price_extractor import extract_prices
+
     prices = extract_prices(html)
     signals["has_price"] = len(prices) > 0
 
@@ -64,7 +69,11 @@ def detect_product_page(html: str, url: str = "") -> dict[str, Any]:
     signals["has_variant_selector"] = _detect_variant_selector(soup)
 
     # 6. Product-image patterns
-    from shopify_auditor.extraction.image_extractor import extract_images, likely_product_images
+    from shopify_auditor.extraction.image_extractor import (
+        extract_images,
+        likely_product_images,
+    )
+
     images = extract_images(html)
     product_imgs = likely_product_images(images)
     signals["has_product_images"] = len(product_imgs) >= 2

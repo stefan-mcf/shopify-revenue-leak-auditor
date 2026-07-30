@@ -1,4 +1,4 @@
-"""Tests for image extraction (Tranche 6)."""
+"""Tests for image extraction."""
 
 from __future__ import annotations
 

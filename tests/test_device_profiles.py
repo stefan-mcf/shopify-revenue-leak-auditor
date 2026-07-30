@@ -1,4 +1,4 @@
-"""Tests for browser device profiles (Tranche 4)."""
+"""Tests for browser device profiles."""
 
 from __future__ import annotations
 

@@ -1,9 +1,8 @@
-"""Tests for file utilities (Tranche 3)."""
+"""Tests for file utilities."""
 
 from __future__ import annotations
 
 import json
-import tempfile
 from pathlib import Path
 
 from shopify_auditor.utils.files import (

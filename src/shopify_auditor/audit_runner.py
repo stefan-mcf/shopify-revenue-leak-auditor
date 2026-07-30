@@ -1,4 +1,4 @@
-"""End-to-end audit pipeline orchestration (Tranche 18).
+"""End-to-end audit pipeline orchestration.
 
 The runner connects URL/output prep, browser loading, extraction, checks,
 scoring, JSON export, and Markdown/HTML report generation.  It is deliberately
@@ -35,7 +35,12 @@ from shopify_auditor.reports.html import HTMLReportGenerator
 from shopify_auditor.reports.markdown import MarkdownReportGenerator
 from shopify_auditor.scoring.scorecard import build_scorecard
 from shopify_auditor.utils.dates import utc_now_iso
-from shopify_auditor.utils.files import create_audit_output_dir, ensure_dir, write_json, write_text
+from shopify_auditor.utils.files import (
+    create_audit_output_dir,
+    ensure_dir,
+    write_json,
+    write_text,
+)
 from shopify_auditor.utils.text import count_words
 from shopify_auditor.utils.urls import get_domain, normalize_url
 
@@ -61,7 +66,9 @@ class AuditRunner:
         self.findings = []
         self.llm_analysis_module = LLMAnalysis(enabled=enable_llm, llm_client=llm_client)
 
-    def run_audit(self, output_dir: str | Path | None = None, *, load_browser: bool = True) -> AuditResult:
+    def run_audit(
+        self, output_dir: str | Path | None = None, *, load_browser: bool = True
+    ) -> AuditResult:
         """Execute the pipeline and return an :class:`AuditResult`.
 
         ``load_browser=False`` is useful for deterministic tests and future
@@ -126,9 +133,17 @@ class AuditRunner:
             # Compatibility for older tests that call generate before run_audit.
             self.run_audit(load_browser=False)
         assert self.result is not None
-        llm_analysis = self.llm_analysis_module.analyze_findings(self.result.findings, self.result.input_url) if self.enable_llm else ""
-        markdown = MarkdownReportGenerator().generate_report({**self._report_context(llm_analysis), "llm_analysis": llm_analysis})
-        html = HTMLReportGenerator().generate_report({**self._report_context(llm_analysis), "llm_analysis": llm_analysis})
+        llm_analysis = (
+            self.llm_analysis_module.analyze_findings(self.result.findings, self.result.input_url)
+            if self.enable_llm
+            else ""
+        )
+        markdown = MarkdownReportGenerator().generate_report(
+            {**self._report_context(llm_analysis), "llm_analysis": llm_analysis}
+        )
+        html = HTMLReportGenerator().generate_report(
+            {**self._report_context(llm_analysis), "llm_analysis": llm_analysis}
+        )
         return {"markdown": markdown, "html": html}
 
     def _generate_summary(self) -> str:
@@ -181,6 +196,7 @@ class AuditRunner:
             url=url,
             title=text_data.get("title") or meta.get("title", ""),
             meta_description=text_data.get("meta_description") or meta.get("meta_description", ""),
+            canonical_url=meta.get("canonical_url", ""),
             headings=text_data.get("headings", []),
             body_text=body_text,
             buttons=text_data.get("buttons", []),
@@ -210,11 +226,16 @@ class AuditRunner:
             price_text=price_text,
             page_text=extracted.body_text,
             product_description=extracted.body_text,
-            links=[LinkAsset(url=l.get("href", ""), text=l.get("text", "")) for l in extracted.links],
-            images=[ImageAsset(src=i.get("src", ""), alt=i.get("alt", "")) for i in extracted.images],
+            links=[
+                LinkAsset(url=link.get("href", ""), text=link.get("text", ""))
+                for link in extracted.links
+            ],
+            images=[
+                ImageAsset(src=i.get("src", ""), alt=i.get("alt", "")) for i in extracted.images
+            ],
             metadata=PageMetadata(
                 meta_description=extracted.meta_description,
-                canonical_url=self._canonical_from_structured_or_empty(extracted.structured_data),
+                canonical_url=extracted.canonical_url,
                 structured_data_types=structured_types,
                 status_code=page.status_code,
                 load_succeeded=page.status == PageLoadStatus.SUCCESS,
@@ -228,12 +249,6 @@ class AuditRunner:
             extracted=extracted,
         )
 
-    @staticmethod
-    def _canonical_from_structured_or_empty(structured_data: list[dict[str, Any]]) -> str:
-        # Canonical URL lives in metadata extraction but ExtractedPageData currently
-        # does not carry it; keep a hook here for later model expansion.
-        return ""
-
     def _fallback_html(self) -> str:
         return (
             "<html><head><title>Audit target</title></head><body>"
@@ -243,7 +258,9 @@ class AuditRunner:
         )
 
 
-def run_audit(url: str, output_base_dir: str | Path = "output", *, enable_llm: bool = False) -> AuditResult:
+def run_audit(
+    url: str, output_base_dir: str | Path = "output", *, enable_llm: bool = False
+) -> AuditResult:
     """Convenience function used by CLI and scripts."""
     normalized = normalize_url(url)
     output_dir = create_audit_output_dir(output_base_dir, normalized)

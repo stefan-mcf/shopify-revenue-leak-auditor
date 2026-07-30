@@ -1,4 +1,4 @@
-"""Compatibility module for the optional LLM analyzer (Tranche 19)."""
+"""Compatibility module for the optional LLM analyzer."""
 
 from __future__ import annotations
 

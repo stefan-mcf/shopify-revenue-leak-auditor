@@ -1,4 +1,4 @@
-"""Tests for link extraction and classification (Tranche 6)."""
+"""Tests for link extraction and classification."""
 
 from __future__ import annotations
 
@@ -13,7 +13,9 @@ from shopify_auditor.extraction.link_extractor import (
 class TestExtractLinks:
     def test_extracts_all_hrefs(self, shopify_product_html: str) -> None:
         links = extract_links(shopify_product_html)
-        assert len(links) >= 7  # we have shipping, returns, faq, reviews, contact, external, privacy, terms
+        assert (
+            len(links) >= 7
+        )  # we have shipping, returns, faq, reviews, contact, external, privacy, terms
 
     def test_each_link_has_href_and_text(self, shopify_product_html: str) -> None:
         links = extract_links(shopify_product_html)

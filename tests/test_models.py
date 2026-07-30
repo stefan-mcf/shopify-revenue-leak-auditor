@@ -1,4 +1,4 @@
-"""Tests for Pydantic data models (Tranche 5)."""
+"""Tests for Pydantic data models."""
 
 from __future__ import annotations
 
@@ -8,14 +8,13 @@ import pytest
 from pydantic import ValidationError
 
 from shopify_auditor.models.audit import (
-    AuditContext,
     AuditResult,
     ExtractedPageData,
     PageLoadResult,
     PageLoadStatus,
 )
 from shopify_auditor.models.evidence import EvidenceItem, EvidenceSource
-from shopify_auditor.models.findings import Finding, Recommendation, Severity
+from shopify_auditor.models.findings import Finding, Severity
 from shopify_auditor.models.report import ReportMetadata, ReportOutput, ReportSection
 
 
@@ -107,9 +106,7 @@ class TestAuditResult:
         r = AuditResult(
             input_url="https://example.com/products/x",
             domain="example.com",
-            findings=[
-                Finding(category="trust", severity=Severity.LOW, title="test")
-            ],
+            findings=[Finding(category="trust", severity=Severity.LOW, title="test")],
         )
         d = r.model_dump()
         # Should survive json.dumps

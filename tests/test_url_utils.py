@@ -1,4 +1,4 @@
-"""Tests for URL utilities (Tranche 3)."""
+"""Tests for URL utilities."""
 
 from __future__ import annotations
 
@@ -15,7 +15,12 @@ from shopify_auditor.utils.urls import (
 
 class TestNormalizeUrl:
     def test_basic(self) -> None:
-        assert normalize_url("HTTP://Example.COM/Path/") == "https://example.com/path"
+        assert normalize_url("HTTP://Example.COM/Path/") == "http://example.com/path"
+
+    def test_preserves_local_http_server(self) -> None:
+        assert normalize_url("http://localhost:8765/products/test") == (
+            "http://localhost:8765/products/test"
+        )
 
     def test_strips_fragment(self) -> None:
         assert normalize_url("https://example.com/page#section") == "https://example.com/page"

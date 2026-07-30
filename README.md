@@ -3,7 +3,7 @@
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Tests](https://github.com/stefan-mcf/shopify-revenue-leak-auditor/actions/workflows/tests.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
-![Status: MVP demo ready](https://img.shields.io/badge/status-MVP%20demo%20ready-purple)
+![Status: Maintained](https://img.shields.io/badge/status-maintained-purple)
 
 Browser-based Shopify audit tool that identifies likely ecommerce revenue leaks and generates client-ready Markdown/HTML reports.
 
@@ -28,7 +28,7 @@ It does not claim to replace human CRO judgement. It gives the reviewer structur
 
 ## What It Audits
 
-The current MVP checks public page evidence across these categories:
+The auditor checks public page evidence across these categories:
 
 | Category | What it looks for |
 |---|---|
@@ -89,8 +89,8 @@ Original generated screenshots are also retained under `examples/sample_outputs/
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev]"
-playwright install chromium
+pip install -e .
+python -m playwright install chromium
 shopify-audit audit-url "https://example-store.com/products/example-product"
 ```
 
@@ -135,7 +135,15 @@ Generate a demo audit through the CLI:
 shopify-audit demo
 ```
 
-Optional LLM wording can be requested with `--llm`, but the core audit is rule-based and works without API keys. LLM analysis is disabled by default via `ENABLE_LLM_ANALYSIS=false`.
+The CLI demo uses packaged fictional page data. It is deterministic, works
+offline, and exercises the same extraction, checks, scoring, and reporting
+pipeline as a live audit. Live `audit-url` and `audit-batch` commands require
+Chromium; a page-load failure writes the partial diagnostic artifacts and exits
+with status `2`.
+
+The released CLI and API are rule-based and do not require API keys. Internal
+LLM interfaces are retained as an extension point, but no provider integration
+or simulated provider output is exposed as a product feature.
 
 ## Audit Methodology
 
@@ -193,7 +201,7 @@ Then call `POST http://127.0.0.1:8765/audit` with a JSON body containing a produ
 ## Documentation
 
 - `docs/PROJECT_OVERVIEW.md` - motivation, use cases, architecture, and workflow
-- `docs/AUDIT_METHODOLOGY.md` - audit categories, rule-based checks, optional LLM layer, evidence-first approach
+- `docs/AUDIT_METHODOLOGY.md` - audit categories, rule-based checks, and evidence-first approach
 - `docs/SCORING_RUBRIC.md` - weights, severity penalties, score labels, interpretation
 - `docs/CLIENT_REPORT_EXAMPLE.md` - client-style deliverable example
 - `docs/API_SERVICE.md` - optional local FastAPI service mode

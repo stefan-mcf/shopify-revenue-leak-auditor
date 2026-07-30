@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -58,13 +57,15 @@ class Finding(BaseModel):
     evidence: list[EvidenceItem] | Evidence | None = Field(default_factory=list)
     recommendation: str | Recommendation | None = Field(default=None, description="Suggested fix")
     priority: int = Field(default=0, ge=0, description="Sort priority (higher = more urgent)")
-    confidence: float = Field(default=0.7, ge=0.0, le=1.0, description="Confidence in this finding 0-1")
+    confidence: float = Field(
+        default=0.7, ge=0.0, le=1.0, description="Confidence in this finding 0-1"
+    )
     suggested_questions: list[str] = Field(default_factory=list)
 
     model_config = {"frozen": False, "extra": "ignore"}
 
     @model_validator(mode="after")
-    def fill_text_fields(self) -> "Finding":
+    def fill_text_fields(self) -> Finding:
         if not self.title and self.message:
             self.title = self.message
         if not self.message and self.title:
