@@ -1,0 +1,504 @@
+{
+  "input_url": "https://calm-home-goods.example/products/calm-desk-lamp",
+  "final_url": "https://calm-home-goods.example/products/calm-desk-lamp",
+  "domain": "calm-home-goods.example",
+  "audit_timestamp": "2026-07-30T01:05:40.201917+00:00",
+  "screenshot_paths": {
+    "desktop": "examples/sample_outputs/demo-product-audit/screenshots/desktop.png",
+    "mobile": "examples/sample_outputs/demo-product-audit/screenshots/mobile.png"
+  },
+  "extracted": {
+    "url": "https://calm-home-goods.example/products/calm-desk-lamp",
+    "title": "Calm Desk Lamp \u2013 Calm Home Goods",
+    "meta_description": "A compact dimmable desk lamp for focused work, reading, and calmer evenings.",
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Calm Desk Lamp"
+      },
+      {
+        "tag": "h2",
+        "text": "What makes it useful"
+      },
+      {
+        "tag": "h2",
+        "text": "Why choose it"
+      },
+      {
+        "tag": "h2",
+        "text": "Join the list"
+      }
+    ],
+    "body_text": "Calm Home Goods Lighting Contact support New desk setup essential Calm Desk Lamp $69.00 Designed to create softer focused light so you can read, write, and work without harsh glare. Perfect for compact desks, home offices, and evening routines. Add to Cart Secure checkout available. Free shipping on orders over $75. What makes it useful Includes three brightness levels, a weighted base, and a fabric-wrapped cable. Made from powder-coated aluminium with a warm LED module. The lamp improves desk visibility while keeping a warmer room feel. Dimensions: 38 cm high, 14 cm base diameter. Best for reading nooks, study desks, bedside tables, and small studio workspaces. Why choose it Unlike bright task lamps that feel clinical, this demo product balances focused light with a softer ambient glow. Join the list Subscribe for style notes and new arrivals. Sign up",
+    "buttons": [
+      "Add to Cart",
+      "Sign up"
+    ],
+    "links": [
+      {
+        "href": "/collections/lighting",
+        "text": "Lighting"
+      },
+      {
+        "href": "/pages/contact",
+        "text": "Contact support"
+      }
+    ],
+    "images": [
+      {
+        "src": "assets/demo-lamp-front.jpg",
+        "alt": "Calm desk lamp on a walnut desk"
+      },
+      {
+        "src": "assets/demo-lamp-detail.jpg",
+        "alt": "Close-up of the lamp dimmer switch"
+      },
+      {
+        "src": "assets/demo-lamp-lifestyle.jpg",
+        "alt": "Lamp beside notebook and tea mug"
+      }
+    ],
+    "prices": [
+      {
+        "value": 69.0,
+        "raw": "$69.00",
+        "currency": "$",
+        "is_sale": false
+      },
+      {
+        "value": 75.0,
+        "raw": "$75",
+        "currency": "$",
+        "is_sale": false
+      }
+    ],
+    "product_signals": {
+      "url_has_product_pattern": true,
+      "has_add_to_cart": true,
+      "has_product_json_ld": true,
+      "has_price": true,
+      "has_variant_selector": false,
+      "has_product_images": true,
+      "confidence": 0.83,
+      "is_product_page": true
+    },
+    "structured_data": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Calm Desk Lamp",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "USD",
+          "price": "69.00"
+        }
+      }
+    ],
+    "word_count": 139
+  },
+  "findings": [
+    {
+      "id": "",
+      "check_id": "trust_signals",
+      "category": "trust_signals",
+      "severity": "high",
+      "title": "No visible returns reassurance detected.",
+      "message": "No visible returns reassurance detected.",
+      "description": "No visible returns reassurance detected.",
+      "evidence": null,
+      "recommendation": "Add a concise returns/refund explanation on the page.",
+      "priority": 0,
+      "confidence": 0.86,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "trust_signals",
+      "category": "trust_signals",
+      "severity": "high",
+      "title": "No visible guarantee reassurance detected.",
+      "message": "No visible guarantee reassurance detected.",
+      "description": "No visible guarantee reassurance detected.",
+      "evidence": null,
+      "recommendation": "Add a guarantee or warranty promise to reduce buyer risk.",
+      "priority": 0,
+      "confidence": 0.86,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "trust_signals",
+      "category": "trust_signals",
+      "severity": "high",
+      "title": "No visible review reassurance detected.",
+      "message": "No visible review reassurance detected.",
+      "description": "No visible review reassurance detected.",
+      "evidence": null,
+      "recommendation": "Show reviews or social proof closer to the product pitch.",
+      "priority": 0,
+      "confidence": 0.86,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "trust_signals",
+      "category": "trust_signals",
+      "severity": "medium",
+      "title": "Trust information may not be close to the purchase area.",
+      "message": "Trust information may not be close to the purchase area.",
+      "description": "Trust information may not be close to the purchase area.",
+      "evidence": null,
+      "recommendation": "Repeat the strongest trust signals near price and CTA.",
+      "priority": 0,
+      "confidence": 0.62,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "copy_quality",
+      "category": "copy_quality",
+      "severity": "medium",
+      "title": "Product copy length is moderate but may need more depth.",
+      "message": "Product copy length is moderate but may need more depth.",
+      "description": "Product copy length is moderate but may need more depth.",
+      "evidence": null,
+      "recommendation": "Add more persuasive detail, buyer context, and proof.",
+      "priority": 0,
+      "confidence": 0.72,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "offer_clarity",
+      "category": "offer_clarity",
+      "severity": "high",
+      "title": "Product has variants/options but clarity may be weak.",
+      "message": "Product has variants/options but clarity may be weak.",
+      "description": "Product has variants/options but clarity may be weak.",
+      "evidence": null,
+      "recommendation": "Clarify variant labels and selection guidance.",
+      "priority": 0,
+      "confidence": 0.77,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "faq_objections",
+      "category": "faq_objections",
+      "severity": "high",
+      "title": "No FAQ or objection-handling section detected.",
+      "message": "No FAQ or objection-handling section detected.",
+      "description": "No FAQ or objection-handling section detected.",
+      "evidence": null,
+      "recommendation": "Add an FAQ section that answers the biggest purchase objections.",
+      "priority": 0,
+      "confidence": 0.93,
+      "suggested_questions": [
+        "How long does shipping take?",
+        "What is the return policy?",
+        "How does sizing or fit work?",
+        "What materials are used?",
+        "Is there a warranty or guarantee?"
+      ]
+    },
+    {
+      "id": "",
+      "check_id": "faq_objections",
+      "category": "faq_objections",
+      "severity": "medium",
+      "title": "Shipping time is not clearly answered.",
+      "message": "Shipping time is not clearly answered.",
+      "description": "Shipping time is not clearly answered.",
+      "evidence": null,
+      "recommendation": "Answer this objection directly on the product page or FAQ.",
+      "priority": 0,
+      "confidence": 0.82,
+      "suggested_questions": [
+        "How long does shipping take?",
+        "What is the return policy?",
+        "How does sizing or fit work?",
+        "What materials are used?",
+        "Is there a warranty or guarantee?"
+      ]
+    },
+    {
+      "id": "",
+      "check_id": "faq_objections",
+      "category": "faq_objections",
+      "severity": "medium",
+      "title": "Returns/refunds are not clearly answered.",
+      "message": "Returns/refunds are not clearly answered.",
+      "description": "Returns/refunds are not clearly answered.",
+      "evidence": null,
+      "recommendation": "Answer this objection directly on the product page or FAQ.",
+      "priority": 0,
+      "confidence": 0.82,
+      "suggested_questions": [
+        "How long does shipping take?",
+        "What is the return policy?",
+        "How does sizing or fit work?",
+        "What materials are used?",
+        "Is there a warranty or guarantee?"
+      ]
+    },
+    {
+      "id": "",
+      "check_id": "faq_objections",
+      "category": "faq_objections",
+      "severity": "medium",
+      "title": "Warranty or guarantee details are not clearly answered.",
+      "message": "Warranty or guarantee details are not clearly answered.",
+      "description": "Warranty or guarantee details are not clearly answered.",
+      "evidence": null,
+      "recommendation": "Answer this objection directly on the product page or FAQ.",
+      "priority": 0,
+      "confidence": 0.82,
+      "suggested_questions": [
+        "How long does shipping take?",
+        "What is the return policy?",
+        "How does sizing or fit work?",
+        "What materials are used?",
+        "Is there a warranty or guarantee?"
+      ]
+    },
+    {
+      "id": "",
+      "check_id": "cta_quality",
+      "category": "cta_quality",
+      "severity": "medium",
+      "title": "CTA language is generic and could be more persuasive.",
+      "message": "CTA language is generic and could be more persuasive.",
+      "description": "CTA language is generic and could be more persuasive.",
+      "evidence": null,
+      "recommendation": "Test more benefit-led CTA copy while keeping clarity.",
+      "priority": 0,
+      "confidence": 0.68,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "cta_quality",
+      "category": "cta_quality",
+      "severity": "medium",
+      "title": "Newsletter or non-purchase CTAs may distract from the purchase path.",
+      "message": "Newsletter or non-purchase CTAs may distract from the purchase path.",
+      "description": "Newsletter or non-purchase CTAs may distract from the purchase path.",
+      "evidence": null,
+      "recommendation": "Reduce competing CTAs around the primary purchase action.",
+      "priority": 0,
+      "confidence": 0.7,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "mobile_ux",
+      "category": "mobile_ux",
+      "severity": "medium",
+      "title": "Popup or newsletter content may distract from the mobile purchase flow.",
+      "message": "Popup or newsletter content may distract from the mobile purchase flow.",
+      "description": "Popup or newsletter content may distract from the mobile purchase flow.",
+      "evidence": null,
+      "recommendation": "Delay or minimize popup prompts on mobile product pages.",
+      "priority": 0,
+      "confidence": 0.74,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "product_information",
+      "category": "product_information",
+      "severity": "medium",
+      "title": "Product image count may be limited for first-time buyers.",
+      "message": "Product image count may be limited for first-time buyers.",
+      "description": "Product image count may be limited for first-time buyers.",
+      "evidence": null,
+      "recommendation": "Add more images, including detail and lifestyle shots.",
+      "priority": 0,
+      "confidence": 0.72,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "technical_health",
+      "category": "technical_health",
+      "severity": "low",
+      "title": "Canonical URL was not detected.",
+      "message": "Canonical URL was not detected.",
+      "description": "Canonical URL was not detected.",
+      "evidence": null,
+      "recommendation": "Add a canonical URL to avoid ambiguity across product variants or duplicates.",
+      "priority": 0,
+      "confidence": 0.69,
+      "suggested_questions": []
+    },
+    {
+      "id": "",
+      "check_id": "technical_health",
+      "category": "technical_health",
+      "severity": "medium",
+      "title": "Extracted page text is somewhat limited.",
+      "message": "Extracted page text is somewhat limited.",
+      "description": "Extracted page text is somewhat limited.",
+      "evidence": null,
+      "recommendation": "Add more purchase-oriented content, specs, and support answers.",
+      "priority": 0,
+      "confidence": 0.7,
+      "suggested_questions": []
+    }
+  ],
+  "scorecard": {
+    "overall_score": 37,
+    "score_label": "Severe Risk",
+    "category_scores": {
+      "trust_signals": {
+        "weight": 15,
+        "penalty": 15,
+        "score": 0,
+        "findings_count": 4
+      },
+      "copy_quality": {
+        "weight": 15,
+        "penalty": 4,
+        "score": 11,
+        "findings_count": 1
+      },
+      "offer_clarity": {
+        "weight": 15,
+        "penalty": 8,
+        "score": 7,
+        "findings_count": 1
+      },
+      "faq_objections": {
+        "weight": 15,
+        "penalty": 15,
+        "score": 0,
+        "findings_count": 4
+      },
+      "cta_quality": {
+        "weight": 10,
+        "penalty": 8,
+        "score": 2,
+        "findings_count": 2
+      },
+      "mobile_ux": {
+        "weight": 10,
+        "penalty": 4,
+        "score": 6,
+        "findings_count": 1
+      },
+      "product_information": {
+        "weight": 10,
+        "penalty": 4,
+        "score": 6,
+        "findings_count": 1
+      },
+      "ai_readiness": {
+        "weight": 5,
+        "penalty": 0,
+        "score": 5,
+        "findings_count": 0
+      },
+      "technical_health": {
+        "weight": 5,
+        "penalty": 5,
+        "score": 0,
+        "findings_count": 2
+      }
+    },
+    "total_findings": 16,
+    "critical_count": 0,
+    "high_count": 5,
+    "medium_count": 10,
+    "low_count": 1,
+    "top_priorities": [
+      {
+        "id": "",
+        "check_id": "faq_objections",
+        "category": "faq_objections",
+        "severity": "high",
+        "title": "No FAQ or objection-handling section detected.",
+        "message": "No FAQ or objection-handling section detected.",
+        "description": "No FAQ or objection-handling section detected.",
+        "evidence": null,
+        "recommendation": "Add an FAQ section that answers the biggest purchase objections.",
+        "priority": 0,
+        "confidence": 0.93,
+        "suggested_questions": [
+          "How long does shipping take?",
+          "What is the return policy?",
+          "How does sizing or fit work?",
+          "What materials are used?",
+          "Is there a warranty or guarantee?"
+        ]
+      },
+      {
+        "id": "",
+        "check_id": "trust_signals",
+        "category": "trust_signals",
+        "severity": "high",
+        "title": "No visible guarantee reassurance detected.",
+        "message": "No visible guarantee reassurance detected.",
+        "description": "No visible guarantee reassurance detected.",
+        "evidence": null,
+        "recommendation": "Add a guarantee or warranty promise to reduce buyer risk.",
+        "priority": 0,
+        "confidence": 0.86,
+        "suggested_questions": []
+      },
+      {
+        "id": "",
+        "check_id": "trust_signals",
+        "category": "trust_signals",
+        "severity": "high",
+        "title": "No visible returns reassurance detected.",
+        "message": "No visible returns reassurance detected.",
+        "description": "No visible returns reassurance detected.",
+        "evidence": null,
+        "recommendation": "Add a concise returns/refund explanation on the page.",
+        "priority": 0,
+        "confidence": 0.86,
+        "suggested_questions": []
+      },
+      {
+        "id": "",
+        "check_id": "trust_signals",
+        "category": "trust_signals",
+        "severity": "high",
+        "title": "No visible review reassurance detected.",
+        "message": "No visible review reassurance detected.",
+        "description": "No visible review reassurance detected.",
+        "evidence": null,
+        "recommendation": "Show reviews or social proof closer to the product pitch.",
+        "priority": 0,
+        "confidence": 0.86,
+        "suggested_questions": []
+      },
+      {
+        "id": "",
+        "check_id": "offer_clarity",
+        "category": "offer_clarity",
+        "severity": "high",
+        "title": "Product has variants/options but clarity may be weak.",
+        "message": "Product has variants/options but clarity may be weak.",
+        "description": "Product has variants/options but clarity may be weak.",
+        "evidence": null,
+        "recommendation": "Clarify variant labels and selection guidance.",
+        "priority": 0,
+        "confidence": 0.77,
+        "suggested_questions": []
+      }
+    ]
+  },
+  "output_paths": {
+    "audit_data_json": "examples/sample_outputs/demo-product-audit/audit_data.json",
+    "markdown_report": "examples/sample_outputs/demo-product-audit/audit_report.md",
+    "html_report": "examples/sample_outputs/demo-product-audit/audit_report.html",
+    "markdown_report_alias": "examples/sample_outputs/demo-product-audit/report.md",
+    "html_report_alias": "examples/sample_outputs/demo-product-audit/report.html",
+    "desktop_screenshot": "examples/sample_outputs/demo-product-audit/screenshots/desktop.png",
+    "mobile_screenshot": "examples/sample_outputs/demo-product-audit/screenshots/mobile.png",
+    "report_overview_screenshot": "examples/sample_outputs/demo-product-audit/screenshots/report-overview.png",
+    "scorecard_screenshot": "examples/sample_outputs/demo-product-audit/screenshots/scorecard.png"
+  },
+  "error": ""
+}

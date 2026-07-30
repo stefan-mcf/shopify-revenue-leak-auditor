@@ -1,0 +1,16 @@
+.env
+__pycache__/
+.pytest_cache/
+output/*
+!output/.gitkeep
+.DS_Store
+.venv/
+dist/
+build/
+*.egg-info/
+.coverage
+htmlcov/
+.worktrees/
+.worktrees/
+.worktrees/
+.worktrees/

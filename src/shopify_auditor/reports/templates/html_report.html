@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify Revenue Leak Audit</title>
+  <style>
+    :root { --text:#0f172a; --muted:#64748b; --border:#dbe3ef; --bg:#f5f7fb; --card:#ffffff; --accent:#0f766e; --accent-soft:#ecfdf5; --risk:#dc2626; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--text); background:radial-gradient(circle at top left,#e0f2fe 0,#f5f7fb 34%,#edf2f7 100%); line-height:1.5; }
+    .wrap { max-width:1120px; margin:0 auto; padding:38px 24px 64px; }
+    .hero,.card { background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:24px; padding:28px; box-shadow:0 24px 70px rgba(15,23,42,.10); margin-bottom:20px; }
+    .hero { display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%); }
+    .eyebrow { margin:0 0 10px; color:var(--accent); font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1,h2,h3 { margin-top:0; letter-spacing:-.02em; }
+    h1 { font-size:44px; line-height:1.03; margin-bottom:10px; }
+    h2 { font-size:24px; }
+    .score { display:inline-flex; align-items:baseline; gap:8px; padding:18px 22px; background:#fff1f2; border:1px solid #fecdd3; border-radius:20px; color:#991b1b; }
+    .score strong { font-size:56px; line-height:.9; color:var(--risk); letter-spacing:-2px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .metric { border:1px solid var(--border); border-radius:16px; padding:16px; background:#fff; }
+    .badge { display:inline-block; border-radius:999px; padding:4px 11px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; }
+    .critical { background:#fee2e2; color:#991b1b; } .high { background:#ffedd5; color:#9a3412; }
+    .medium { background:#fef9c3; color:#854d0e; } .low { background:#dcfce7; color:#166534; } .info { background:#e0f2fe; color:#075985; }
+    .finding { border-top:1px solid var(--border); padding:16px 0; }
+    .muted { color:var(--muted); }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    img { max-width:100%; border:1px solid var(--border); border-radius:12px; }
+  </style>
+</head>
+<body><main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Product-page conversion audit</p>
+      <h1>Shopify Revenue Leak Audit</h1>
+      <p class="muted">{{ result.input_url }}{% if result.final_url and result.final_url != result.input_url %} → {{ result.final_url }}{% endif %}</p>
+    </div>
+    <div class="score"><span class="sr-only">Overall Score</span><strong>{{ overall_score }}</strong><span>/100 · {{ score_label }}</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Executive Summary</h2>
+    <p>This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation.</p>
+  </section>
+
+  <section class="card">
+    <h2>Category Scorecard</h2>
+    <div class="grid">
+      {% for row in category_scores %}<div class="metric"><strong>{{ row.label }}</strong><br>{{ row.score }}/{{ row.weight }}<br><span class="muted">{{ row.count }} finding{% if row.count != 1 %}s{% endif %}</span></div>{% endfor %}
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Top Revenue Leak Findings</h2>
+    {% for finding in top_findings %}<div class="finding"><span class="badge {{ finding.severity.value }}">{{ finding.severity.value }}</span><h3>{{ finding.title }}</h3><p>{{ finding.description }}</p><p><strong>Recommendation:</strong> {{ finding.recommendation }}</p></div>{% else %}<p>No major revenue leaks detected.</p>{% endfor %}
+  </section>
+
+  <section class="card">
+    <h2>Detailed Findings by Category</h2>
+    {% for key, label in category_labels.items() %}<h3>{{ label }}</h3>{% for finding in findings_by_category[key] %}<div class="finding"><span class="badge {{ finding.severity.value }}">{{ finding.severity.value }}</span> <strong>{{ finding.title }}</strong><p>{{ finding.recommendation }}</p></div>{% else %}<p class="muted">No issues detected by this rule set.</p>{% endfor %}{% endfor %}
+  </section>
+
+  <section class="card"><h2>7-Day Implementation Checklist</h2><ol><li>Fix high-priority trust gaps.</li><li>Add FAQ answers.</li><li>Improve product copy.</li><li>Improve CTA and offer clarity.</li><li>Improve mobile presentation.</li><li>Add product metadata and AI-readiness content.</li><li>Review, QA, and retest.</li></ol></section>
+
+  {% if llm_analysis %}<section class="card"><h2>LLM Analysis (Optional)</h2><p>{{ llm_analysis }}</p></section>{% endif %}
+  <section class="card"><h2>Limitations</h2><p>This audit uses public page analysis only and does not access private Shopify analytics or guarantee revenue improvement.</p></section>
+</main></body></html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shopify Revenue Leak Audit</title>
+  <style>
+    :root { --text:#0f172a; --muted:#64748b; --border:#dbe3ef; --bg:#f5f7fb; --card:#ffffff; --accent:#0f766e; --accent-soft:#ecfdf5; --risk:#dc2626; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--text); background:radial-gradient(circle at top left,#e0f2fe 0,#f5f7fb 34%,#edf2f7 100%); line-height:1.5; }
+    .wrap { max-width:1120px; margin:0 auto; padding:38px 24px 64px; }
+    .hero,.card { background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:24px; padding:28px; box-shadow:0 24px 70px rgba(15,23,42,.10); margin-bottom:20px; }
+    .hero { display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; background:linear-gradient(135deg,#ffffff 0%,#f8fafc 100%); }
+    .eyebrow { margin:0 0 10px; color:var(--accent); font-size:12px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+    h1,h2,h3 { margin-top:0; letter-spacing:-.02em; }
+    h1 { font-size:44px; line-height:1.03; margin-bottom:10px; }
+    h2 { font-size:24px; }
+    .score { display:inline-flex; align-items:baseline; gap:8px; padding:18px 22px; background:#fff1f2; border:1px solid #fecdd3; border-radius:20px; color:#991b1b; }
+    .score strong { font-size:56px; line-height:.9; color:var(--risk); letter-spacing:-2px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+    .metric { border:1px solid var(--border); border-radius:16px; padding:16px; background:#fff; }
+    .badge { display:inline-block; border-radius:999px; padding:4px 11px; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; }
+    .critical { background:#fee2e2; color:#991b1b; } .high { background:#ffedd5; color:#9a3412; }
+    .medium { background:#fef9c3; color:#854d0e; } .low { background:#dcfce7; color:#166534; } .info { background:#e0f2fe; color:#075985; }
+    .finding { border-top:1px solid var(--border); padding:16px 0; }
+    .muted { color:var(--muted); }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    img { max-width:100%; border:1px solid var(--border); border-radius:12px; }
+  </style>
+</head>
+<body><main class="wrap">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Product-page conversion audit</p>
+      <h1>Shopify Revenue Leak Audit</h1>
+      <p class="muted">https://calm-home-goods.example/products/calm-desk-lamp</p>
+    </div>
+    <div class="score"><span class="sr-only">Overall Score</span><strong>37</strong><span>/100 · Severe Risk</span></div>
+  </section>
+
+  <section class="card">
+    <h2>Executive Summary</h2>
+    <p>This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation.</p>
+  </section>
+
+  <section class="card">
+    <h2>Category Scorecard</h2>
+    <div class="grid">
+      <div class="metric"><strong>Trust Signals</strong><br>0/15<br><span class="muted">4 findings</span></div><div class="metric"><strong>Copy Quality</strong><br>11/15<br><span class="muted">1 finding</span></div><div class="metric"><strong>Offer Clarity</strong><br>7/15<br><span class="muted">1 finding</span></div><div class="metric"><strong>FAQ and Objection Handling</strong><br>0/15<br><span class="muted">4 findings</span></div><div class="metric"><strong>CTA Quality</strong><br>2/10<br><span class="muted">2 findings</span></div><div class="metric"><strong>Mobile UX</strong><br>6/10<br><span class="muted">1 finding</span></div><div class="metric"><strong>Product Information</strong><br>6/10<br><span class="muted">1 finding</span></div><div class="metric"><strong>AI-Shopping Readiness</strong><br>5/5<br><span class="muted">0 findings</span></div><div class="metric"><strong>Technical Health</strong><br>0/5<br><span class="muted">2 findings</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Top Revenue Leak Findings</h2>
+    <div class="finding"><span class="badge high">high</span><h3>No FAQ or objection-handling section detected.</h3><p>No FAQ or objection-handling section detected.</p><p><strong>Recommendation:</strong> Add an FAQ section that answers the biggest purchase objections.</p></div><div class="finding"><span class="badge high">high</span><h3>No visible returns reassurance detected.</h3><p>No visible returns reassurance detected.</p><p><strong>Recommendation:</strong> Add a concise returns/refund explanation on the page.</p></div><div class="finding"><span class="badge high">high</span><h3>No visible guarantee reassurance detected.</h3><p>No visible guarantee reassurance detected.</p><p><strong>Recommendation:</strong> Add a guarantee or warranty promise to reduce buyer risk.</p></div><div class="finding"><span class="badge high">high</span><h3>No visible review reassurance detected.</h3><p>No visible review reassurance detected.</p><p><strong>Recommendation:</strong> Show reviews or social proof closer to the product pitch.</p></div><div class="finding"><span class="badge high">high</span><h3>Product has variants/options but clarity may be weak.</h3><p>Product has variants/options but clarity may be weak.</p><p><strong>Recommendation:</strong> Clarify variant labels and selection guidance.</p></div><div class="finding"><span class="badge medium">medium</span><h3>Shipping time is not clearly answered.</h3><p>Shipping time is not clearly answered.</p><p><strong>Recommendation:</strong> Answer this objection directly on the product page or FAQ.</p></div><div class="finding"><span class="badge medium">medium</span><h3>Returns/refunds are not clearly answered.</h3><p>Returns/refunds are not clearly answered.</p><p><strong>Recommendation:</strong> Answer this objection directly on the product page or FAQ.</p></div><div class="finding"><span class="badge medium">medium</span><h3>Warranty or guarantee details are not clearly answered.</h3><p>Warranty or guarantee details are not clearly answered.</p><p><strong>Recommendation:</strong> Answer this objection directly on the product page or FAQ.</p></div><div class="finding"><span class="badge medium">medium</span><h3>Popup or newsletter content may distract from the mobile purchase flow.</h3><p>Popup or newsletter content may distract from the mobile purchase flow.</p><p><strong>Recommendation:</strong> Delay or minimize popup prompts on mobile product pages.</p></div><div class="finding"><span class="badge medium">medium</span><h3>Product copy length is moderate but may need more depth.</h3><p>Product copy length is moderate but may need more depth.</p><p><strong>Recommendation:</strong> Add more persuasive detail, buyer context, and proof.</p></div>
+  </section>
+
+  <section class="card">
+    <h2>Detailed Findings by Category</h2>
+    <h3>Trust Signals</h3><div class="finding"><span class="badge high">high</span> <strong>No visible returns reassurance detected.</strong><p>Add a concise returns/refund explanation on the page.</p></div><div class="finding"><span class="badge high">high</span> <strong>No visible guarantee reassurance detected.</strong><p>Add a guarantee or warranty promise to reduce buyer risk.</p></div><div class="finding"><span class="badge high">high</span> <strong>No visible review reassurance detected.</strong><p>Show reviews or social proof closer to the product pitch.</p></div><div class="finding"><span class="badge medium">medium</span> <strong>Trust information may not be close to the purchase area.</strong><p>Repeat the strongest trust signals near price and CTA.</p></div><h3>Copy Quality</h3><div class="finding"><span class="badge medium">medium</span> <strong>Product copy length is moderate but may need more depth.</strong><p>Add more persuasive detail, buyer context, and proof.</p></div><h3>Offer Clarity</h3><div class="finding"><span class="badge high">high</span> <strong>Product has variants/options but clarity may be weak.</strong><p>Clarify variant labels and selection guidance.</p></div><h3>FAQ and Objection Handling</h3><div class="finding"><span class="badge high">high</span> <strong>No FAQ or objection-handling section detected.</strong><p>Add an FAQ section that answers the biggest purchase objections.</p></div><div class="finding"><span class="badge medium">medium</span> <strong>Shipping time is not clearly answered.</strong><p>Answer this objection directly on the product page or FAQ.</p></div><div class="finding"><span class="badge medium">medium</span> <strong>Returns/refunds are not clearly answered.</strong><p>Answer this objection directly on the product page or FAQ.</p></div><div class="finding"><span class="badge medium">medium</span> <strong>Warranty or guarantee details are not clearly answered.</strong><p>Answer this objection directly on the product page or FAQ.</p></div><h3>CTA Quality</h3><div class="finding"><span class="badge medium">medium</span> <strong>CTA language is generic and could be more persuasive.</strong><p>Test more benefit-led CTA copy while keeping clarity.</p></div><div class="finding"><span class="badge medium">medium</span> <strong>Newsletter or non-purchase CTAs may distract from the purchase path.</strong><p>Reduce competing CTAs around the primary purchase action.</p></div><h3>Mobile UX</h3><div class="finding"><span class="badge medium">medium</span> <strong>Popup or newsletter content may distract from the mobile purchase flow.</strong><p>Delay or minimize popup prompts on mobile product pages.</p></div><h3>Product Information</h3><div class="finding"><span class="badge medium">medium</span> <strong>Product image count may be limited for first-time buyers.</strong><p>Add more images, including detail and lifestyle shots.</p></div><h3>AI-Shopping Readiness</h3><p class="muted">No issues detected by this rule set.</p><h3>Technical Health</h3><div class="finding"><span class="badge low">low</span> <strong>Canonical URL was not detected.</strong><p>Add a canonical URL to avoid ambiguity across product variants or duplicates.</p></div><div class="finding"><span class="badge medium">medium</span> <strong>Extracted page text is somewhat limited.</strong><p>Add more purchase-oriented content, specs, and support answers.</p></div>
+  </section>
+
+  <section class="card"><h2>7-Day Implementation Checklist</h2><ol><li>Fix high-priority trust gaps.</li><li>Add FAQ answers.</li><li>Improve product copy.</li><li>Improve CTA and offer clarity.</li><li>Improve mobile presentation.</li><li>Add product metadata and AI-readiness content.</li><li>Review, QA, and retest.</li></ol></section>
+
+  
+  <section class="card"><h2>Limitations</h2><p>This audit uses public page analysis only and does not access private Shopify analytics or guarantee revenue improvement.</p></section>
+</main></body></html>

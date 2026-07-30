@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shopify-revenue-leak-auditor"
+version = "0.1.0"
+description = "Browser-based Shopify audit tool that generates client-ready ecommerce revenue leak reports."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Stefan McFarlane"}]
+dependencies = [
+  "typer>=0.12",
+  "rich>=13.7",
+  "pydantic>=2.7",
+  "jinja2>=3.1",
+  "beautifulsoup4>=4.12",
+  "playwright>=1.44",
+]
+
+[project.optional-dependencies]
+api = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.30.0",
+]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.scripts]
+shopify-audit = "shopify_auditor.cli:app"
+shopify-audit-api = "shopify_auditor.api:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+shopify_auditor = ["reports/templates/*.html", "reports/templates/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

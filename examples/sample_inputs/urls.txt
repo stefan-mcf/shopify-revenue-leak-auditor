@@ -1,0 +1,3 @@
+# Public-safe demo input list for sample-output generation.
+# This URL is fictional and paired with examples/sample_inputs/demo-product-page.html.
+https://calm-home-goods.example/products/calm-desk-lamp
