@@ -9,7 +9,7 @@ description = "Browser-based Shopify audit tool that generates client-ready ecom
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
-authors = [{name = "Stefan McFarlane"}]
+authors = [{name = "Stefan McFeeters"}]
 dependencies = [
   "typer>=0.12",
   "rich>=13.7",
