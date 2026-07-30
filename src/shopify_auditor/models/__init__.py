@@ -15,7 +15,12 @@ from shopify_auditor.models.audit import (
     PageMetadata,
 )
 from shopify_auditor.models.evidence import Evidence, EvidenceItem, EvidenceSource
-from shopify_auditor.models.findings import Finding, FindingSeverity, Recommendation, Severity
+from shopify_auditor.models.findings import (
+    Finding,
+    FindingSeverity,
+    Recommendation,
+    Severity,
+)
 from shopify_auditor.models.report import ReportMetadata, ReportOutput, ReportSection
 
 
@@ -41,22 +46,22 @@ class Scorecard(BaseModel):
 __all__ = [
     "AuditContext",
     "AuditResult",
+    "CategoryScore",
+    "Evidence",
+    "EvidenceItem",
+    "EvidenceSource",
     "ExtractedPageData",
+    "Finding",
+    "FindingSeverity",
     "ImageAsset",
     "LinkAsset",
     "PageLoadResult",
     "PageLoadStatus",
     "PageMetadata",
-    "Evidence",
-    "EvidenceItem",
-    "EvidenceSource",
-    "Finding",
-    "FindingSeverity",
     "Recommendation",
-    "Severity",
     "ReportMetadata",
     "ReportOutput",
     "ReportSection",
-    "CategoryScore",
     "Scorecard",
+    "Severity",
 ]

@@ -17,8 +17,8 @@ _PRICE_PATTERN = re.compile(
 )
 
 # Patterns commonly found in Shopify price-related elements
-_SALE_CLASSES = re.compile(r"sale|compare.?at|was[-\s]?price|original[-\s]?price", re.I)
-_PRICE_CLASSES = re.compile(r"price|amount|money|cost", re.I)
+_SALE_CLASSES = re.compile(r"sale|compare.?at|was[-\s]?price|original[-\s]?price", re.IGNORECASE)
+_PRICE_CLASSES = re.compile(r"price|amount|money|cost", re.IGNORECASE)
 
 
 def extract_prices(html: str) -> list[dict[str, Any]]:
@@ -42,8 +42,12 @@ def extract_prices(html: str) -> list[dict[str, Any]]:
             parsed = _parse_price_text(text)
             if parsed:
                 results.append(
-                    {"value": parsed["value"], "raw": parsed["raw"],
-                     "currency": parsed["currency"], "is_sale": is_sale}
+                    {
+                        "value": parsed["value"],
+                        "raw": parsed["raw"],
+                        "currency": parsed["currency"],
+                        "is_sale": is_sale,
+                    }
                 )
 
     # Strategy 2: Just look at all visible text for price patterns
@@ -56,10 +60,7 @@ def extract_prices(html: str) -> list[dict[str, Any]]:
             num_str = match.group(2) or match.group(3) or ""
             value = _parse_number(num_str)
             if value is not None:
-                results.append(
-                    {"value": value, "raw": raw,
-                     "currency": currency, "is_sale": False}
-                )
+                results.append({"value": value, "raw": raw, "currency": currency, "is_sale": False})
 
     return results
 

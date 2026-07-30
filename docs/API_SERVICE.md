@@ -1,6 +1,6 @@
 # Local API Service Mode
 
-Tranche 25 adds an optional FastAPI wrapper around the same audit pipeline used by the CLI. It is intended for local demos, lightweight integrations, and future UI prototypes.
+The optional FastAPI service wraps the same audit pipeline used by the CLI. It is intended for local use and lightweight integrations.
 
 ## Install
 
@@ -50,7 +50,6 @@ curl -X POST http://127.0.0.1:8765/audit \
   -d '{
     "url": "https://example.com/products/demo-product",
     "output_dir": "output/api",
-    "llm": false,
     "include_report_bodies": true
   }'
 ```
@@ -88,3 +87,5 @@ print(response.overall_score, response.output_paths)
 - It does not guarantee revenue lift; findings are likely conversion risks and improvement opportunities.
 - It writes local artifacts to disk.
 - It should be treated as a local developer/demo service, not a production SaaS API.
+- If the browser cannot load the target page, it returns HTTP `502` and retains
+  diagnostic artifacts in the selected output directory.

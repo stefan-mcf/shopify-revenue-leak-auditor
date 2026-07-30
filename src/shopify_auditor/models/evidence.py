@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 
@@ -44,6 +44,6 @@ class EvidenceItem(BaseModel):
     confidence: float = Field(default=0.5, ge=0.0, le=1.0, description="Confidence 0-1")
     raw_text: str = Field(default="", description="Raw text snippet from the page")
     url: str = Field(default="", description="The page URL this evidence came from")
-    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
 
     model_config = {"frozen": False, "extra": "ignore"}

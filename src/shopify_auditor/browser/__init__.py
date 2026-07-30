@@ -3,8 +3,8 @@
 from shopify_auditor.browser.device_profiles import (
     DESKTOP,
     MOBILE,
-    DeviceProfile,
     PROFILES,
+    DeviceProfile,
 )
 from shopify_auditor.browser.page_loader import PageLoader
 from shopify_auditor.browser.runner import BrowserRunner
@@ -15,7 +15,13 @@ from shopify_auditor.browser.screenshots import (
 )
 
 __all__ = [
-    "BrowserRunner", "PageLoader",
-    "DeviceProfile", "DESKTOP", "MOBILE", "PROFILES",
-    "capture_screenshot", "capture_desktop_screenshot", "capture_mobile_screenshot",
+    "DESKTOP",
+    "MOBILE",
+    "PROFILES",
+    "BrowserRunner",
+    "DeviceProfile",
+    "PageLoader",
+    "capture_desktop_screenshot",
+    "capture_mobile_screenshot",
+    "capture_screenshot",
 ]

@@ -25,7 +25,6 @@ The audit can use these evidence types:
 - likely product prices and variant language
 - desktop and mobile screenshot files
 - page load status and extraction quality signals
-- optional LLM wording suggestions, if explicitly enabled
 
 The tool should not invent analytics, conversion rates, customer behavior data, private Shopify data, or ad performance.
 
@@ -142,7 +141,7 @@ Typical finding: missing structured data or unusually short extracted content ma
 
 ## Rule-Based Checks
 
-The MVP uses deterministic keyword and signal checks rather than relying on an LLM. This keeps the project usable without API keys and makes test results predictable.
+The core auditor uses deterministic keyword and signal checks rather than relying on an LLM. This keeps the project usable without API keys and makes test results predictable.
 
 Rule-based checks are intentionally conservative:
 
@@ -151,16 +150,11 @@ Rule-based checks are intentionally conservative:
 - Findings should include evidence snippets or signal descriptions where practical.
 - Recommendations should be specific enough to guide a fix.
 
-## Optional LLM Layer
+## Extension Boundary
 
-LLM analysis is optional and disabled by default. When enabled, it may help with wording, summarisation, FAQ suggestions, ad hooks, or copy improvement ideas.
-
-Guardrails:
-
-- The audit must work without LLM access.
-- LLM failure must not fail the audit.
-- LLM output must not invent analytics, revenue, conversion rates, customer behavior, or private data.
-- LLM wording should be treated as a draft for human review.
+The released CLI and API do not call an LLM provider. Internal interfaces are
+kept for future provider-specific work, but they are not presented as working
+product features and the core audit does not depend on them.
 
 ## Evidence-First Wording Standards
 

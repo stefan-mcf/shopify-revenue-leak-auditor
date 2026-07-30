@@ -1,4 +1,4 @@
-"""Tests for Shopify product page detection (Tranche 6)."""
+"""Tests for Shopify product page detection."""
 
 from __future__ import annotations
 

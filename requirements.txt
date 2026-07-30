@@ -1,7 +1,2 @@
-typer>=0.12
-rich>=13.7
-pydantic>=2.7
-jinja2>=3.1
-beautifulsoup4>=4.12
-playwright>=1.44
-pytest>=8.0
+# Development environment. pyproject.toml is the dependency source of truth.
+-e .[api,dev]

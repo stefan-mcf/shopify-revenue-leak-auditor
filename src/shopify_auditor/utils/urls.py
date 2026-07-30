@@ -32,9 +32,9 @@ def normalize_url(url: str) -> str:
     if not url.lower().startswith(("http://", "https://")):
         url = "https://" + url
     parsed = urlparse(url)
-    # Lower scheme, netloc and path for deterministic slugs/tests
+    # Preserve valid HTTP URLs so localhost and test servers continue to work.
     normalized = parsed._replace(
-        scheme="https",
+        scheme=parsed.scheme.lower(),
         netloc=parsed.netloc.lower(),
         path=parsed.path.lower(),
         fragment="",
@@ -86,9 +86,7 @@ def infer_slug_from_url(url: str) -> str:
     except Exception:
         return _sanitise(domain)
 
-    slug_candidates = [
-        s for s in path.split("/") if s and s not in ("products", "product", "item")
-    ]
+    slug_candidates = [s for s in path.split("/") if s and s not in ("products", "product", "item")]
     if slug_candidates:
         slug = slug_candidates[-1]
     else:

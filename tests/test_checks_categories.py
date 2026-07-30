@@ -1,7 +1,7 @@
 from shopify_auditor.checks import (
     AIReadinessCheck,
-    CTAQualityCheck,
     CopyQualityCheck,
+    CTAQualityCheck,
     FAQObjectionCheck,
     MobileUXCheck,
     OfferClarityCheck,
@@ -43,14 +43,23 @@ def test_cta_quality_and_mobile_ux_flag_conversion_risk(weak_context: AuditConte
     cta_findings = CTAQualityCheck().run(weak_context)
     mobile_findings = MobileUXCheck().run(weak_context)
     assert any("cta" in f.message.lower() or "purchase" in f.message.lower() for f in cta_findings)
-    assert any("mobile" in f.message.lower() or "image-heavy" in f.message.lower() for f in mobile_findings)
+    assert any(
+        "mobile" in f.message.lower() or "image-heavy" in f.message.lower() for f in mobile_findings
+    )
 
 
-def test_product_information_and_ai_readiness_flag_missing_structure(weak_context: AuditContext) -> None:
+def test_product_information_and_ai_readiness_flag_missing_structure(
+    weak_context: AuditContext,
+) -> None:
     product_findings = ProductInformationCheck().run(weak_context)
     ai_findings = AIReadinessCheck().run(weak_context)
-    assert any("spec" in f.message.lower() or "image" in f.message.lower() for f in product_findings)
-    assert any("ai shopping" in f.message.lower() or "buyer questions" in f.message.lower() for f in ai_findings)
+    assert any(
+        "spec" in f.message.lower() or "image" in f.message.lower() for f in product_findings
+    )
+    assert any(
+        "ai shopping" in f.message.lower() or "buyer questions" in f.message.lower()
+        for f in ai_findings
+    )
 
 
 def test_technical_health_flags_missing_metadata(weak_context: AuditContext) -> None:

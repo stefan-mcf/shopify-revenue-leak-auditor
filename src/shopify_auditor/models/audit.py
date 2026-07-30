@@ -66,6 +66,7 @@ class ExtractedPageData(BaseModel):
     url: str = Field("", description="Page URL extraction targeted")
     title: str = Field("", description="Page <title>")
     meta_description: str = Field("", description="Meta description if present")
+    canonical_url: str = Field("", description="Canonical URL if present")
     headings: list[dict[str, str]] = Field(default_factory=list)
     body_text: str = Field("", description="Visible body text")
     buttons: list[str] = Field(default_factory=list)

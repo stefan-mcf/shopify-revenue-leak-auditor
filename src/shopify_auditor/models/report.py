@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from pydantic import BaseModel, Field
 
@@ -13,7 +13,7 @@ class ReportMetadata(BaseModel):
     tool_name: str = "shopify-revenue-leak-auditor"
     tool_version: str = Field(default="0.1.0")
     generated_at: str = Field(
-        default_factory=lambda: datetime.now(timezone.utc).isoformat(),
+        default_factory=lambda: datetime.now(UTC).isoformat(),
     )
     url: str = Field("", description="Audited URL")
     domain: str = Field("", description="Domain audited")

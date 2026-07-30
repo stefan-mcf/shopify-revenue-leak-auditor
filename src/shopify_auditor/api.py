@@ -8,8 +8,9 @@ installing the optional FastAPI service stack. Install the service mode with:
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -24,12 +25,14 @@ class AuditApiRequest(BaseModel):
     """Request body for local API audits."""
 
     url: str = Field(..., description="Product page URL to audit")
-    output_dir: str = Field("output/api", description="Base output directory for generated artifacts")
-    llm: bool = Field(False, description="Enable configured LLM analysis")
+    output_dir: str = Field(
+        "output/api", description="Base output directory for generated artifacts"
+    )
     include_report_bodies: bool = Field(
         True,
         description="Include Markdown/HTML report bodies in the JSON response as well as writing files",
     )
+    model_config = {"extra": "forbid"}
 
 
 class AuditApiResponse(BaseModel):
@@ -47,6 +50,10 @@ class AuditApiResponse(BaseModel):
     html_report: str | None = None
 
 
+class AuditLoadError(RuntimeError):
+    """Raised when the target page cannot be loaded by the browser."""
+
+
 def _score_value(scorecard: Any, *keys: str) -> Any:
     if isinstance(scorecard, dict):
         for key in keys:
@@ -60,7 +67,9 @@ def _score_value(scorecard: Any, *keys: str) -> Any:
 
 
 def _finding_summary(finding: Finding) -> dict[str, Any]:
-    severity = finding.severity.value if hasattr(finding.severity, "value") else str(finding.severity)
+    severity = (
+        finding.severity.value if hasattr(finding.severity, "value") else str(finding.severity)
+    )
     recommendation = finding.recommendation
     if hasattr(recommendation, "text"):
         recommendation = recommendation.text
@@ -75,7 +84,9 @@ def _finding_summary(finding: Finding) -> dict[str, Any]:
     }
 
 
-def _write_api_outputs(result: AuditResult, reports: dict[str, str], out_path: Path) -> dict[str, str]:
+def _write_api_outputs(
+    result: AuditResult, reports: dict[str, str], out_path: Path
+) -> dict[str, str]:
     markdown_report_path = out_path / "audit_report.md"
     html_report_path = out_path / "audit_report.html"
     data_path = out_path / "audit_data.json"
@@ -119,8 +130,8 @@ def run_audit_request(
     audit_runner = runner_cls(
         normalized_url,
         output_dir=out_path,
-        enable_llm=request.llm,
-        llm_client="mock" if request.llm else None,
+        enable_llm=False,
+        llm_client=None,
     )
     result = audit_runner.run_audit()
     if result is None:
@@ -130,6 +141,11 @@ def run_audit_request(
 
     reports = audit_runner.generate_reports()
     output_paths = _write_api_outputs(result, reports, out_path)
+    if result.error:
+        raise AuditLoadError(
+            f"Audit could not load the target page: {result.error}. "
+            f"Diagnostic artifacts were written to {out_path}."
+        )
 
     sorted_findings = sorted(result.findings, key=lambda item: item.severity.rank)
     return AuditApiResponse(
@@ -174,6 +190,8 @@ def create_app(*, runner_cls: Callable[..., Any] = AuditRunner) -> Any:
             return run_audit_request(request, runner_cls=runner_cls)
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
+        except AuditLoadError as exc:
+            raise HTTPException(status_code=502, detail=str(exc)) from exc
 
     return app
 

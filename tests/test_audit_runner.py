@@ -1,4 +1,4 @@
-"""Tests for end-to-end audit runner and report generation (Tranches 16-19)."""
+"""Tests for end-to-end audit runner and report generation."""
 
 from __future__ import annotations
 
@@ -6,12 +6,12 @@ from pathlib import Path
 
 from shopify_auditor.audit_runner import AuditRunner
 
-
 PRODUCT_HTML = """
 <html>
 <head>
 <title>Classic Leather Tote Bag – ShopExample</title>
 <meta name="description" content="Handcrafted tote with free shipping and easy returns.">
+<link rel="canonical" href="https://example.com/products/tote">
 <script type="application/ld+json">{"@type":"Product","name":"Classic Leather Tote Bag"}</script>
 </head>
 <body>
@@ -42,6 +42,10 @@ def test_runner_extracts_fixture_and_generates_reports(monkeypatch) -> None:
     monkeypatch.setattr(runner, "_fallback_html", lambda: PRODUCT_HTML)
     result = runner.run_audit(load_browser=False)
     assert result.extracted.title.startswith("Classic Leather Tote")
+    assert result.extracted.canonical_url == "https://example.com/products/tote"
+    assert not any(
+        "Canonical URL was not detected" in finding.message for finding in result.findings
+    )
     assert result.scorecard.overall_score <= 100
 
     reports = runner.generate_reports()
@@ -52,7 +56,7 @@ def test_runner_extracts_fixture_and_generates_reports(monkeypatch) -> None:
     assert "<html" in reports["html"]
 
 
-def test_runner_writes_mvp_outputs(tmp_path: Path, monkeypatch) -> None:
+def test_runner_writes_outputs(tmp_path: Path, monkeypatch) -> None:
     out = tmp_path / "audit"
     runner = AuditRunner("https://example.com/products/tote", output_dir=out)
     monkeypatch.setattr(runner, "_fallback_html", lambda: PRODUCT_HTML)

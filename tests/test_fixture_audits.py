@@ -1,4 +1,4 @@
-"""Fixture-backed tests for Tranche 22 coverage breadth.
+"""Fixture-backed tests for audit coverage breadth.
 
 These tests exercise realistic static product-page fixtures rather than only
 inline snippets, so future detector/check/report changes have stable examples
@@ -26,7 +26,9 @@ def read_fixture(name: str) -> str:
 
 
 def run_fixture(name: str):
-    runner = AuditRunner(f"https://example.com/products/{name.removesuffix('.html').replace('_', '-')}")
+    runner = AuditRunner(
+        f"https://example.com/products/{name.removesuffix('.html').replace('_', '-')}"
+    )
     runner._fallback_html = lambda: read_fixture(name)  # type: ignore[method-assign]
     return runner, runner.run_audit(load_browser=False)
 

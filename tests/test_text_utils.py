@@ -1,10 +1,13 @@
-"""Tests for text utilities (Tranche 3)."""
+"""Tests for text utilities."""
 
 from __future__ import annotations
 
-import pytest
-
-from shopify_auditor.utils.text import clean_whitespace, contains_any, count_words, truncate
+from shopify_auditor.utils.text import (
+    clean_whitespace,
+    contains_any,
+    count_words,
+    truncate,
+)
 
 
 class TestCleanWhitespace:

@@ -1,4 +1,4 @@
-"""Tests for text extraction from HTML (Tranche 6)."""
+"""Tests for text extraction from HTML."""
 
 from __future__ import annotations
 
@@ -47,7 +47,9 @@ class TestExtractBodyText:
         assert "Free shipping" in text
 
     def test_removes_script_style_content(self) -> None:
-        html = "<html><body><p>Visible</p><script>var x=1;</script><style>.cls{}</style></body></html>"
+        html = (
+            "<html><body><p>Visible</p><script>var x=1;</script><style>.cls{}</style></body></html>"
+        )
         text = extract_body_text(html)
         assert "Visible" in text
         assert "var x" not in text

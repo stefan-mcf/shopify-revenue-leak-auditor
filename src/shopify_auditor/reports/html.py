@@ -14,7 +14,9 @@ from shopify_auditor.reports.markdown import report_context
 class HTMLReportGenerator:
     def __init__(self) -> None:
         template_dir = Path(__file__).with_name("templates")
-        self.env = Environment(loader=FileSystemLoader(template_dir), autoescape=select_autoescape(["html", "xml"]))
+        self.env = Environment(
+            loader=FileSystemLoader(template_dir), autoescape=select_autoescape(["html", "xml"])
+        )
         self.template = self.env.get_template("html_report.html")
 
     def generate_report(self, data: dict[str, Any] | AuditResult) -> str:

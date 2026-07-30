@@ -8,12 +8,12 @@ stdlib PNG fallback keeps the script usable in minimal environments.
 
 from __future__ import annotations
 
-from html import escape
 import base64
 import mimetypes
-from pathlib import Path
 import struct
 import zlib
+from html import escape
+from pathlib import Path
 
 from shopify_auditor.audit_runner import AuditRunner
 from shopify_auditor.models import PageLoadResult, PageLoadStatus
@@ -40,7 +40,13 @@ def _inline_fixture_images(html: str) -> str:
     return html
 
 
-def _png(path: Path, width: int, height: int, top_rgb: tuple[int, int, int], bottom_rgb: tuple[int, int, int]) -> None:
+def _png(
+    path: Path,
+    width: int,
+    height: int,
+    top_rgb: tuple[int, int, int],
+    bottom_rgb: tuple[int, int, int],
+) -> None:
     """Write a simple RGB PNG using only the Python standard library."""
     path.parent.mkdir(parents=True, exist_ok=True)
     rows = []
@@ -51,7 +57,12 @@ def _png(path: Path, width: int, height: int, top_rgb: tuple[int, int, int], bot
     raw = b"".join(rows)
 
     def chunk(kind: bytes, data: bytes) -> bytes:
-        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+        return (
+            struct.pack(">I", len(data))
+            + kind
+            + data
+            + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+        )
 
     png = b"\x89PNG\r\n\x1a\n"
     png += chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
@@ -133,7 +144,7 @@ def _scorecard_html(result: object) -> str:
         </div>
         <div class='score'><strong>{result.scorecard.overall_score}</strong><span>/100 · {escape(result.scorecard.score_label)}</span></div>
       </section>
-      <table><thead><tr><th>Category</th><th>Score</th><th>Visual</th><th>Findings</th></tr></thead><tbody>{''.join(rows)}</tbody></table>
+      <table><thead><tr><th>Category</th><th>Score</th><th>Visual</th><th>Findings</th></tr></thead><tbody>{"".join(rows)}</tbody></table>
     </main></body></html>
     """
 
@@ -150,7 +161,9 @@ def _render_page_screenshots(html: str, paths: dict[str, Path]) -> None:
     try:
         from playwright.sync_api import sync_playwright
 
-        rendered_html = _inline_fixture_images(html).replace("</head>", _fixture_screenshot_css() + "</head>")
+        rendered_html = _inline_fixture_images(html).replace(
+            "</head>", _fixture_screenshot_css() + "</head>"
+        )
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
             desktop = browser.new_page(viewport={"width": 1280, "height": 1000})
@@ -167,7 +180,9 @@ def _render_page_screenshots(html: str, paths: dict[str, Path]) -> None:
         _write_fallback_screenshots(paths)
 
 
-def _render_report_screenshots(report_html: str, scorecard_html: str, paths: dict[str, Path]) -> None:
+def _render_report_screenshots(
+    report_html: str, scorecard_html: str, paths: dict[str, Path]
+) -> None:
     """Render report and scorecard screenshots, falling back to simple PNGs."""
     try:
         from playwright.sync_api import sync_playwright
@@ -218,7 +233,10 @@ def generate() -> None:
             status_code=200,
             title="Calm Desk Lamp – Calm Home Goods",
             html=html,
-            screenshot_paths={"desktop": screenshot_paths["desktop"], "mobile": screenshot_paths["mobile"]},
+            screenshot_paths={
+                "desktop": screenshot_paths["desktop"],
+                "mobile": screenshot_paths["mobile"],
+            },
         )
 
     runner._load_page = load_fixture  # type: ignore[method-assign]
