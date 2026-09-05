@@ -9,6 +9,8 @@ Browser-based Shopify audit tool that identifies likely ecommerce revenue leaks 
 
 Use it to load a public Shopify product page, capture evidence, extract page content, run structured checks, score likely revenue leaks, and export reports that a human can review before sending to a client.
 
+**Role:** browser capture, audit rules, scoring, report generation and CLI/API delivery. **Status:** an SM Systems audit-assistance tool; the published sample uses fictional fixtures and does not claim measured revenue gains.
+
 ## Why This Exists
 
 Many ecommerce stores send paid and organic traffic to product pages that do not clearly answer buyer objections, explain the offer, show trust signals, or support mobile purchase behavior.
@@ -54,13 +56,13 @@ Each audit can produce:
 
 Public-safe demo artifacts are committed under `examples/sample_outputs/`:
 
-- `examples/sample_outputs/demo-product-audit/audit_data.json`
-- `examples/sample_outputs/demo-product-audit/audit_report.md`
-- `examples/sample_outputs/demo-product-audit/audit_report.html`
-- `examples/sample_outputs/demo-product-audit/screenshots/desktop.png`
-- `examples/sample_outputs/demo-product-audit/screenshots/mobile.png`
-- `examples/sample_outputs/demo-product-audit/screenshots/report-overview.png`
-- `examples/sample_outputs/demo-product-audit/screenshots/scorecard.png`
+- [Structured audit data](examples/sample_outputs/demo-product-audit/audit_data.json)
+- [Sample Markdown report](examples/sample_outputs/demo-product-audit/audit_report.md)
+- [Sample HTML report source](examples/sample_outputs/demo-product-audit/audit_report.html)
+- [Desktop page evidence](examples/sample_outputs/demo-product-audit/screenshots/desktop.png)
+- [Mobile page evidence](examples/sample_outputs/demo-product-audit/screenshots/mobile.png)
+- [Report overview](examples/sample_outputs/demo-product-audit/screenshots/report-overview.png)
+- [Scorecard](examples/sample_outputs/demo-product-audit/screenshots/scorecard.png)
 
 The sample is generated from fictional fixture data in `examples/sample_inputs/` and does not include private client data, Shopify credentials, or revenue-improvement claims.
 
@@ -159,7 +161,7 @@ The audit workflow is evidence-first:
 8. Generate Markdown and HTML reports.
 9. Keep all claims framed as likely risks or improvement opportunities pending human review.
 
-See `docs/AUDIT_METHODOLOGY.md` for the full methodology.
+See [Audit methodology](docs/AUDIT_METHODOLOGY.md) for the full methodology.
 
 ## Scoring Model
 
@@ -185,7 +187,7 @@ Score labels:
 - 40-59: High Risk
 - 0-39: Severe Risk
 
-See `docs/SCORING_RUBRIC.md` for severity levels and interpretation.
+See [Scoring rubric](docs/SCORING_RUBRIC.md) for severity levels and interpretation.
 
 ## API Service Mode
 
@@ -200,13 +202,13 @@ Then call `POST http://127.0.0.1:8765/audit` with a JSON body containing a produ
 
 ## Documentation
 
-- `docs/PROJECT_OVERVIEW.md` - motivation, use cases, architecture, and workflow
-- `docs/AUDIT_METHODOLOGY.md` - audit categories, rule-based checks, and evidence-first approach
-- `docs/SCORING_RUBRIC.md` - weights, severity penalties, score labels, interpretation
-- `docs/CLIENT_REPORT_EXAMPLE.md` - client-style deliverable example
-- `docs/API_SERVICE.md` - optional local FastAPI service mode
-- `docs/CLIENT_REQUIREMENTS.md` - client intake checklist for audit delivery
-- `docs/LIMITATIONS.md` - public-page-only boundaries and safe-use notes
+- [Project overview](docs/PROJECT_OVERVIEW.md) - motivation, use cases, architecture, and workflow
+- [Audit methodology](docs/AUDIT_METHODOLOGY.md) - audit categories, rule-based checks, and evidence-first approach
+- [Scoring rubric](docs/SCORING_RUBRIC.md) - weights, severity penalties, score labels, interpretation
+- [Client report example](docs/CLIENT_REPORT_EXAMPLE.md) - client-style deliverable example
+- [API service](docs/API_SERVICE.md) - optional local FastAPI service mode
+- [Client requirements](docs/CLIENT_REQUIREMENTS.md) - client intake checklist for audit delivery
+- [Limitations](docs/LIMITATIONS.md) - public-page-only boundaries and safe-use notes
 
 ## Limitations
 
