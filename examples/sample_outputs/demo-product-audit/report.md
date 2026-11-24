@@ -1,13 +1,16 @@
 # Shopify Revenue Leak Audit Report
 
-**Date:** 2026-07-30T01:05:40.201917+00:00
+> **Fictional demo.** The product page is a local fixture. The heuristic score illustrates how the rules prioritize findings for review.
+
+
+**Date:** 2026-11-24T10:54:00.732665+00:00
 **Shop URL:** https://calm-home-goods.example/products/calm-desk-lamp
 **Final URL:** https://calm-home-goods.example/products/calm-desk-lamp
 **Domain:** calm-home-goods.example
 
 ## Executive Summary
 
-This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation. Recommendations should be human-reviewed before implementation.
+This example applies the audit rules to a packaged fictional product page. It shows how the rules flag trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health for human review.
 
 ## Overall Score
 
@@ -226,7 +229,7 @@ This audit reviewed the product page for likely revenue leaks across trust, copy
 
 ## Limitations
 
-This audit is based on public page inspection and automated analysis. It does not access private Shopify analytics, checkout analytics, customer behavior recordings, heatmaps, ad accounts, or customer support data unless separately integrated.
+The findings describe the fixture. The example contains no shop analytics, checkout data, or measured revenue outcomes.
 
 ## Disclaimer
 

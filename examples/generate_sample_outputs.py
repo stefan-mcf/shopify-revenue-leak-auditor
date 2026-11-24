@@ -1,29 +1,27 @@
 """Generate public-safe sample outputs.
 
-The sample uses a fictional product-page fixture and does not require network
-access, Shopify credentials, or LLM API keys. If Playwright/Chromium is
-available, screenshots are rendered from the fixture and generated report; a
-stdlib PNG fallback keeps the script usable in minimal environments.
+The sample uses a fictional product-page fixture and requires installed
+Playwright Chromium to render the fixture and generated reports.
 """
 
 from __future__ import annotations
 
 import base64
 import mimetypes
-import struct
-import zlib
 from html import escape
 from pathlib import Path
 
-from shopify_auditor.audit_runner import AuditRunner
+from playwright.sync_api import Error, sync_playwright
+
+from shopify_auditor.demo import DEMO_URL, DemoAuditRunner
 from shopify_auditor.models import PageLoadResult, PageLoadStatus
+from shopify_auditor.reports.markdown import CATEGORY_LABELS
 from shopify_auditor.utils.files import write_json, write_text
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SAMPLE_INPUTS = REPO_ROOT / "examples" / "sample_inputs"
 SAMPLE_OUTPUTS = REPO_ROOT / "examples" / "sample_outputs" / "demo-product-audit"
 FIXTURE_HTML = SAMPLE_INPUTS / "demo-product-page.html"
-SAMPLE_URL = "https://calm-home-goods.example/products/calm-desk-lamp"
 
 
 def _inline_fixture_images(html: str) -> str:
@@ -38,37 +36,6 @@ def _inline_fixture_images(html: str) -> str:
         mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
         html = html.replace(src, f"data:{mime_type};base64,{encoded}")
     return html
-
-
-def _png(
-    path: Path,
-    width: int,
-    height: int,
-    top_rgb: tuple[int, int, int],
-    bottom_rgb: tuple[int, int, int],
-) -> None:
-    """Write a simple RGB PNG using only the Python standard library."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    rows = []
-    for y in range(height):
-        ratio = y / max(height - 1, 1)
-        rgb = tuple(int(top_rgb[i] * (1 - ratio) + bottom_rgb[i] * ratio) for i in range(3))
-        rows.append(b"\x00" + bytes(rgb) * width)
-    raw = b"".join(rows)
-
-    def chunk(kind: bytes, data: bytes) -> bytes:
-        return (
-            struct.pack(">I", len(data))
-            + kind
-            + data
-            + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
-        )
-
-    png = b"\x89PNG\r\n\x1a\n"
-    png += chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
-    png += chunk(b"IDAT", zlib.compress(raw, level=9))
-    png += chunk(b"IEND", b"")
-    path.write_bytes(png)
 
 
 def _fixture_screenshot_css() -> str:
@@ -103,7 +70,7 @@ def _fixture_screenshot_css() -> str:
 def _scorecard_html(result: object) -> str:
     rows = []
     for key, score in result.scorecard.category_scores.items():
-        label = key.replace("_", " ").title()
+        label = CATEGORY_LABELS[key]
         width = round((score.score / score.weight) * 100) if score.weight else 0
         rows.append(
             f"""
@@ -120,7 +87,7 @@ def _scorecard_html(result: object) -> str:
     <html><head><meta charset='utf-8'><title>Audit Scorecard</title>
     <style>
       :root {{ --ink:#0f172a; --muted:#64748b; --line:#dbe3ef; --panel:#ffffff; --soft:#f6f8fb; --accent:#0f766e; --risk:#dc2626; }}
-      body {{ margin: 0; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg,#08111f 0%,#102034 42%,#f6f8fb 42%); color: var(--ink); }}
+      body {{ margin: 0; min-height: 100vh; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg,#08111f 0%,#102034 42%,#f6f8fb 42%); color: var(--ink); }}
       main {{ max-width: 1120px; margin: 0 auto; padding: 44px 48px 54px; }}
       .hero {{ background: linear-gradient(135deg,#ffffff 0%,#f8fafc 100%); border:1px solid rgba(219,227,239,.95); border-radius: 30px; padding: 32px 38px; box-shadow: 0 28px 80px rgba(8,17,31,.20); display:grid; grid-template-columns: 1fr auto; gap:24px; align-items:center; }}
       .eyebrow {{ color:var(--accent); font-size:13px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }}
@@ -138,70 +105,50 @@ def _scorecard_html(result: object) -> str:
     </style></head><body><main>
       <section class='hero'>
         <div>
-          <p class='eyebrow'>Product-page conversion audit</p>
+          <p class='eyebrow'>Fictional demo</p>
           <h1>Revenue Leak Scorecard</h1>
           <p class='summary'>Prioritized scoring across trust, offer clarity, copy, objections, CTA quality, mobile UX, product information, AI-shopping readiness, and technical health.</p>
         </div>
-        <div class='score'><strong>{result.scorecard.overall_score}</strong><span>/100 · {escape(result.scorecard.score_label)}</span></div>
+        <div class='score'><strong>{result.scorecard.overall_score}</strong><span>/100 · Heuristic score</span></div>
       </section>
       <table><thead><tr><th>Category</th><th>Score</th><th>Visual</th><th>Findings</th></tr></thead><tbody>{"".join(rows)}</tbody></table>
     </main></body></html>
     """
 
 
-def _write_fallback_screenshots(paths: dict[str, Path]) -> None:
-    _png(paths["desktop"], 1280, 1000, (245, 247, 250), (201, 214, 228))
-    _png(paths["mobile"], 390, 844, (250, 247, 240), (216, 200, 179))
-    _png(paths["report_overview"], 1280, 720, (236, 248, 243), (179, 216, 207))
-    _png(paths["scorecard"], 1280, 900, (243, 240, 252), (205, 193, 232))
-
-
-def _render_page_screenshots(html: str, paths: dict[str, Path]) -> None:
-    """Render desktop/mobile fixture screenshots, falling back to simple PNGs."""
-    try:
-        from playwright.sync_api import sync_playwright
-
-        rendered_html = _inline_fixture_images(html).replace(
-            "</head>", _fixture_screenshot_css() + "</head>"
-        )
-        with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True)
-            desktop = browser.new_page(viewport={"width": 1280, "height": 1000})
-            desktop.set_content(rendered_html, wait_until="load")
-            desktop.screenshot(path=paths["desktop"], full_page=False)
-            desktop.close()
-
-            mobile = browser.new_page(viewport={"width": 390, "height": 844}, is_mobile=True)
-            mobile.set_content(rendered_html, wait_until="load")
-            mobile.screenshot(path=paths["mobile"], full_page=False)
-            mobile.close()
-            browser.close()
-    except Exception:
-        _write_fallback_screenshots(paths)
-
-
-def _render_report_screenshots(
-    report_html: str, scorecard_html: str, paths: dict[str, Path]
+def _render_screenshots(
+    fixture_html: str, report_html: str, scorecard_html: str, paths: dict[str, Path]
 ) -> None:
-    """Render report and scorecard screenshots, falling back to simple PNGs."""
+    """Capture every view before replacing existing sample images."""
+    fixture_html = _inline_fixture_images(fixture_html).replace(
+        "</head>", _fixture_screenshot_css() + "</head>"
+    )
+    views = {
+        "desktop": (fixture_html, 1280, 1000),
+        "mobile": (fixture_html, 390, 844),
+        "report_overview": (report_html, 1280, 720),
+        "scorecard": (scorecard_html, 1280, 900),
+    }
+    screenshots = {}
     try:
-        from playwright.sync_api import sync_playwright
-
         with sync_playwright() as p:
             browser = p.chromium.launch(headless=True)
-            report = browser.new_page(viewport={"width": 1280, "height": 720})
-            report.set_content(report_html, wait_until="load")
-            report.screenshot(path=paths["report_overview"], full_page=False)
-            report.close()
-
-            scorecard = browser.new_page(viewport={"width": 1280, "height": 900})
-            scorecard.set_content(scorecard_html, wait_until="load")
-            scorecard.screenshot(path=paths["scorecard"], full_page=False)
-            scorecard.close()
+            for name, (html, width, height) in views.items():
+                page = browser.new_page(
+                    viewport={"width": width, "height": height},
+                    is_mobile=name == "mobile",
+                )
+                page.set_content(html, wait_until="load")
+                screenshots[name] = page.screenshot()
+                page.close()
             browser.close()
-    except Exception:
-        _png(paths["report_overview"], 1280, 720, (236, 248, 243), (179, 216, 207))
-        _png(paths["scorecard"], 1280, 900, (243, 240, 252), (205, 193, 232))
+    except Error as exc:
+        raise RuntimeError(
+            "Sample screenshot capture failed. Install Chromium with "
+            "'python -m playwright install chromium' and rerun the generator."
+        ) from exc
+    for name, screenshot in screenshots.items():
+        paths[name].write_bytes(screenshot)
 
 
 def _screenshot_paths() -> tuple[dict[str, Path], dict[str, str]]:
@@ -221,14 +168,12 @@ def generate() -> None:
     SAMPLE_OUTPUTS.mkdir(parents=True, exist_ok=True)
     absolute_screenshots, screenshot_paths = _screenshot_paths()
     html = FIXTURE_HTML.read_text(encoding="utf-8")
-    _render_page_screenshots(html, absolute_screenshots)
-
-    runner = AuditRunner(SAMPLE_URL, output_dir=SAMPLE_OUTPUTS, enable_llm=False)
+    runner = DemoAuditRunner(DEMO_URL, output_dir=SAMPLE_OUTPUTS, enable_llm=False)
 
     def load_fixture(*, load_browser: bool) -> PageLoadResult:
         return PageLoadResult(
-            url=SAMPLE_URL,
-            original_url=SAMPLE_URL,
+            url=DEMO_URL,
+            original_url=DEMO_URL,
             status=PageLoadStatus.SUCCESS,
             status_code=200,
             title="Calm Desk Lamp – Calm Home Goods",
@@ -242,7 +187,7 @@ def generate() -> None:
     runner._load_page = load_fixture  # type: ignore[method-assign]
     result = runner.run_audit(load_browser=False)
     reports = runner.generate_reports()
-    _render_report_screenshots(reports["html"], _scorecard_html(result), absolute_screenshots)
+    _render_screenshots(html, reports["html"], _scorecard_html(result), absolute_screenshots)
 
     paths = {
         "audit_data_json": str((SAMPLE_OUTPUTS / "audit_data.json").relative_to(REPO_ROOT)),

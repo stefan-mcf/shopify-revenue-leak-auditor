@@ -139,6 +139,11 @@ def test_demo_is_offline_and_generates_complete_outputs(tmp_path) -> None:
         "report.html",
     }
     assert expected_files.issubset(path.name for path in report_dir.iterdir())
+    for name in ("audit_report.md", "audit_report.html", "report.md", "report.html"):
+        report = (report_dir / name).read_text(encoding="utf-8")
+        assert "Fictional demo" in report
+        assert "heuristic score" in report.lower()
+        assert "based on public page evidence" not in report
     audit_data = json.loads((report_dir / "audit_data.json").read_text(encoding="utf-8"))
     assert audit_data["error"] == ""
     assert audit_data["extracted"]["canonical_url"] == DEMO_URL

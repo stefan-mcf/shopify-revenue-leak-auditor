@@ -31,16 +31,16 @@
 <body><main class="wrap">
   <section class="hero">
     <div>
-      <p class="eyebrow">Product-page conversion audit</p>
+      <p class="eyebrow">{% if is_fictional_demo %}Fictional demo{% else %}Product-page conversion audit{% endif %}</p>
       <h1>Shopify Revenue Leak Audit</h1>
       <p class="muted">{{ result.input_url }}{% if result.final_url and result.final_url != result.input_url %} → {{ result.final_url }}{% endif %}</p>
     </div>
-    <div class="score"><span class="sr-only">Overall Score</span><strong>{{ overall_score }}</strong><span>/100 · {{ score_label }}</span></div>
+    <div class="score"><span class="sr-only">Overall Score</span><strong>{{ overall_score }}</strong><span>/100 · {% if is_fictional_demo %}Heuristic score{% else %}{{ score_label }}{% endif %}</span></div>
   </section>
 
   <section class="card">
     <h2>Executive Summary</h2>
-    <p>This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation.</p>
+    <p>{% if is_fictional_demo %}This example applies the audit rules to a packaged fictional product page. It shows how the rules flag trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health for human review.{% else %}This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation.{% endif %}</p>
   </section>
 
   <section class="card">
@@ -63,5 +63,5 @@
   <section class="card"><h2>7-Day Implementation Checklist</h2><ol><li>Fix high-priority trust gaps.</li><li>Add FAQ answers.</li><li>Improve product copy.</li><li>Improve CTA and offer clarity.</li><li>Improve mobile presentation.</li><li>Add product metadata and AI-readiness content.</li><li>Review, QA, and retest.</li></ol></section>
 
   {% if llm_analysis %}<section class="card"><h2>LLM Analysis (Optional)</h2><p>{{ llm_analysis }}</p></section>{% endif %}
-  <section class="card"><h2>Limitations</h2><p>This audit uses public page analysis only and does not access private Shopify analytics or guarantee revenue improvement.</p></section>
+  <section class="card"><h2>Limitations</h2><p>{% if is_fictional_demo %}The findings describe the fixture. The example contains no shop analytics, checkout data, or measured revenue outcomes.{% else %}This audit uses public page analysis only and does not access private Shopify analytics or guarantee revenue improvement.{% endif %}</p></section>
 </main></body></html>

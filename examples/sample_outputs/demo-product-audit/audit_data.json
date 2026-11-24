@@ -2,7 +2,7 @@
   "input_url": "https://calm-home-goods.example/products/calm-desk-lamp",
   "final_url": "https://calm-home-goods.example/products/calm-desk-lamp",
   "domain": "calm-home-goods.example",
-  "audit_timestamp": "2026-07-30T01:05:40.201917+00:00",
+  "audit_timestamp": "2026-11-24T10:54:00.732665+00:00",
   "screenshot_paths": {
     "desktop": "examples/sample_outputs/demo-product-audit/screenshots/desktop.png",
     "mobile": "examples/sample_outputs/demo-product-audit/screenshots/mobile.png"
@@ -11,6 +11,7 @@
     "url": "https://calm-home-goods.example/products/calm-desk-lamp",
     "title": "Calm Desk Lamp \u2013 Calm Home Goods",
     "meta_description": "A compact dimmable desk lamp for focused work, reading, and calmer evenings.",
+    "canonical_url": "",
     "headings": [
       {
         "tag": "h1",

@@ -1,5 +1,8 @@
 # Shopify Revenue Leak Audit Report
 
+{% if is_fictional_demo %}> **Fictional demo.** The product page is a local fixture. The heuristic score illustrates how the rules prioritize findings for review.
+
+{% endif %}
 **Date:** {{ result.audit_timestamp }}
 **Shop URL:** {{ result.input_url }}
 **Final URL:** {{ result.final_url }}
@@ -7,7 +10,7 @@
 
 ## Executive Summary
 
-This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation. Recommendations should be human-reviewed before implementation.
+{% if is_fictional_demo %}This example applies the audit rules to a packaged fictional product page. It shows how the rules flag trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health for human review.{% else %}This audit reviewed the product page for likely revenue leaks across trust, copy, offer clarity, objection handling, CTA quality, mobile UX, product information, AI-shopping readiness, and basic technical health. Findings are based on public page evidence and are prioritized for practical implementation. Recommendations should be human-reviewed before implementation.{% endif %}
 
 ## Overall Score
 
@@ -68,7 +71,7 @@ No major revenue leaks were detected by the rule-based checks.
 
 ## Limitations
 
-This audit is based on public page inspection and automated analysis. It does not access private Shopify analytics, checkout analytics, customer behavior recordings, heatmaps, ad accounts, or customer support data unless separately integrated.
+{% if is_fictional_demo %}The findings describe the fixture. The example contains no shop analytics, checkout data, or measured revenue outcomes.{% else %}This audit is based on public page inspection and automated analysis. It does not access private Shopify analytics, checkout analytics, customer behavior recordings, heatmaps, ad accounts, or customer support data unless separately integrated.{% endif %}
 
 ## Disclaimer
 

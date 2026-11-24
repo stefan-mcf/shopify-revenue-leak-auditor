@@ -2,22 +2,19 @@
 
 These files are public-safe demo artifacts generated from a fictional product page fixture, not from a real Shopify client store.
 
-## What is included
+## Inspect the example
 
-- `demo-product-audit/audit_data.json` — structured audit result and scorecard.
-- `demo-product-audit/audit_report.md` — client-readable Markdown report.
-- `demo-product-audit/audit_report.html` — client-readable HTML report.
-- `demo-product-audit/screenshots/desktop.png` — desktop evidence screenshot for the demo fixture.
-- `demo-product-audit/screenshots/mobile.png` — mobile evidence screenshot for the demo fixture.
-- `demo-product-audit/screenshots/report-overview.png` — visual summary of the generated report sections.
-- `demo-product-audit/screenshots/scorecard.png` — visual summary of the scorecard categories.
+- [Markdown report](demo-product-audit/audit_report.md), [HTML report](demo-product-audit/audit_report.html) and [structured result](demo-product-audit/audit_data.json).
+- [Desktop capture](demo-product-audit/screenshots/desktop.png) and [mobile capture](demo-product-audit/screenshots/mobile.png) of the fictional product page.
+- [Report overview](demo-product-audit/screenshots/report-overview.png) and [category scorecard](demo-product-audit/screenshots/scorecard.png).
 
 ## Reproduce the sample
 
-From the repository root:
+From the repository root, activate the project environment and install Playwright Chromium if needed:
 
 ```bash
 source .venv/bin/activate
+python -m playwright install chromium
 python examples/generate_sample_outputs.py
 ```
 
@@ -25,4 +22,4 @@ The sample uses deterministic fixture HTML from `examples/sample_inputs/demo-pro
 
 ## Use note
 
-The sample shows the report format and audit categories without claiming actual revenue lift or exposing private client data.
+The storefront captures render the fixture with example styling. The report scores the fixture source with the published audit rules. Use these artifacts to inspect the report format and rule priorities.

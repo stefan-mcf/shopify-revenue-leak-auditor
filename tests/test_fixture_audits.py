@@ -105,3 +105,6 @@ def test_fixture_reports_contain_required_client_sections() -> None:
 
     assert "does not guarantee revenue" in markdown.lower()
     assert "human-reviewed" in markdown.lower()
+    for report in reports.values():
+        assert "based on public page evidence" in report
+        assert "Fictional demo" not in report

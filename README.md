@@ -8,9 +8,9 @@ Capture public product pages, apply explicit audit rules and produce Markdown/HT
 
 [Methodology](docs/AUDIT_METHODOLOGY.md) · [Scoring rubric](docs/SCORING_RUBRIC.md) · [Sample report](examples/sample_outputs/demo-product-audit/audit_report.md)
 
-![Report generated from fictional product-page fixtures](docs/assets/report-overview.png)
+![Fictional demo report with a heuristic score and findings for review](examples/sample_outputs/demo-product-audit/screenshots/report-overview.png)
 
-*Fictional fixture report. Original [sample artifacts](examples/sample_outputs/demo-product-audit/) include the desktop/mobile captures and scorecard.*
+*The report explains the rule-based findings for one fictional product page. The [sample artifacts](examples/sample_outputs/demo-product-audit/) include the desktop and mobile captures and category scorecard.*
 
 ## How it works
 
@@ -46,7 +46,7 @@ python -m build
 twine check dist/*
 ```
 
-CI also tests an installed wheel and supported Python versions. Regenerate fictional sample outputs with `python examples/generate_sample_outputs.py`.
+CI also tests an installed wheel and supported Python versions. With Playwright Chromium installed, regenerate the fictional reports and screenshots with `python examples/generate_sample_outputs.py`.
 
 ## Scope and current state
 

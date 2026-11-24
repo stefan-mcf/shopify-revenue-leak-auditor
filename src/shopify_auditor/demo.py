@@ -13,6 +13,9 @@ DEMO_URL = "https://calm-home-goods.example/products/calm-desk-lamp"
 class DemoAuditRunner(AuditRunner):
     """Run the normal audit pipeline against packaged fictional page data."""
 
+    def _report_context(self, llm_analysis: str = "") -> dict[str, object]:
+        return {**super()._report_context(llm_analysis), "is_fictional_demo": True}
+
     def _load_page(self, *, load_browser: bool) -> PageLoadResult:
         html = (
             files("shopify_auditor").joinpath("demo_product_page.html").read_text(encoding="utf-8")
